@@ -1,0 +1,78 @@
+전역 변수 안쓰고 매개변수로 포인터 배열 받을때
+
+#pragma warning(disable: 4996)
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define BUFFER_SIZE 200
+//********테스트 모두 통과*********
+
+
+//1. 파일 읽는다
+//	 읽어올 때 단어와 단어에 대한 설명이 '\t' 로 구분되어 있으므로
+//   해당 문자를 기준으로 분리하여 words, sentences 배열에 저장
+//	 (단어: 영문 소문자 문자열, 설명: 여러 개의 단어로 구성된 문장)
+
+//2. words 배열을 사전식으로 정렬하며, 이때 sentences 배열은 words 배열에
+//   1대 1로 대응한다(의존한다)
+
+//3. 사전식으로 정렬된 배열 words 와 sentences 배열을 이용해 
+//   읽어온 파일과 같은 형태(단어와 문장이 '\t'로 구분됨)로 
+//   새로운 파일을 생성하여 저장한다
+ 
+
+#pragma warning (disable:4996)
+#include <stdio.h>
+#include <string.h>
+#define BUFFER_SIZE 10000
+
+//1.파일의 한줄씩 fgets 함수를 이용하여 읽어들인다
+//2.읽어들인 문장을 배열에 저장하고
+//  strok 로 그 배열을 단어와 설명으로 나눈다 => how?
+
+char*words[BUFFER_SIZE];
+char*sentences[BUFFER_SIZE];
+int n = 0;
+
+void load() {
+    char temp[BUFFER_SIZE];
+    FILE* fp = fopen("shuffled_dict.txt", "r");
+    if (fp == NULL) {
+        printf("Open failed.\n");
+        return;
+    }
+    //한 문장씩 읽어들여서 단어와 설명으로 나누고 각각 배열에 저장한다.
+    while ((fgets(temp, BUFFER_SIZE, fp) != NULL)) {
+        char* tempWord = strtok(temp, "\t");
+        char* tempSentence = strtok(NULL, "\0");
+        words[n] = strdup(tempWord);
+        sentences[n] = strdup(tempSentence);
+        n++;
+    }
+}
+
+void bubbleSort(char **words, char **sentences, int n){
+    printf("%d", n);
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (strcmp(words[j], words[j + 1]) > 0) {
+                //char* temp1 = words[j];
+                char * temp1 = strdup(words[j]);
+                words[j] = words[j + 1];
+                words[j + 1] = temp1;
+
+                //char * temp2 = sentences[j];
+                char * temp2 = strdup(sentences[j]);
+                sentences[j] = sentences[j + 1];
+                sentences[j + 1] = temp2;
+            }
+        }
+    }
+}
+
+int main(void) {
+    load();
+    bubbleSort(words, sentences, n);
+
+    return 0;
+}

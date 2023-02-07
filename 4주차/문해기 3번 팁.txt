@@ -1,0 +1,13 @@
+문자열 전체를 돌면서 
+
+1. 앞부분이 공백인건 다 지우고
+2. 중간부분이 공백인건 바로 뒤의 문자가 공백이면 지구ㅗ
+3. 뒷부분도 다 지운다.
+
+
+//앞 뒤 공백 제거
+https://intrepidgeeks.com/tutorial/clear-the-space-before-and-after-the-c-language-string
+
+개행문자 제거
+//https://codingdog.tistory.com/entry/c%EC%96%B8%EC%96%B4-fgets-%ED%95%A8%EC%88%98-%EC%95%88%EC%A0%84%ED%95%98%EA%B2%8C-%EB%AC%B8%EC%9E%90%EC%97%B4%EC%9D%84-%EC%9E%85%EB%A0%A5%EB%B0%9B%EB%8A%94%EB%8B%A4
+			//https://blueryankim.tistory.com/54 개행문자 제거
